@@ -1,6 +1,5 @@
 # coding=utf-8
 from __future__ import absolute_import
-import multiprocessing
 
 __author__ = "Gina Häußge <osd@foosel.net>, Javier Martínez Arrieta <martinezarrietajavier@gmail.com>"
 __license__ = 'GNU Affero General Public License http://www.gnu.org/licenses/agpl.html'
@@ -85,10 +84,10 @@ defaults = dict(
     fill_density = "40%",
     fill_angle = 45,
     fill_pattern = FillPatterns.HONEYCOMB,
-    start_gcode = '',
-    end_gcode = '',
-    layer_gcode = '',
-    toolchange_gcode = '',
+    start_gcode = None,
+    end_gcode = None,
+    layer_gcode = None,
+    toolchange_gcode = None,
     seam_position = SeamPositions.ALIGNED,
     external_perimeters_first = 0, 			# 0 (unchecked) or 1 (checked)
     spiral_vase = 0, 					# 0 (unchecked) or 1 (checked)
@@ -172,7 +171,7 @@ defaults = dict(
     extrusion_axis = "E",
     bed_shape = "0x0,100x0,100x100,0x100",
     bed_size = (200,200),
-    before_layer_gcode = '',
+    before_layer_gcode = None,
     external_fill_pattern = FillPatterns.RECTILINEAR,
     filament_colour = "#FFFFFF",
     infill_overlap = "15%",
@@ -185,6 +184,7 @@ defaults = dict(
     threads = 2,
     first_layer_bed_temperature = 90,
     interface_shells = 0, 				# 0 (unchecked) or 1 (checked)
+    post_processing = None,
     solid_fill_pattern = FillPatterns.RECTILINEAR,
     g0 = 0,						# 0 (unchecked) or 1 (checked)
     duplicate = 1,
