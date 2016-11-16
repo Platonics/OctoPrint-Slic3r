@@ -59,7 +59,7 @@ class Slic3rPlugin(octoprint.plugin.SlicerPlugin,
 		input_name = "file"
 		input_upload_name = input_name + "." + self._settings.global_get(["server", "uploads", "nameSuffix"])
 		input_upload_path = input_name + "." + self._settings.global_get(["server", "uploads", "pathSuffix"])
-
+		
 		if input_upload_name in flask.request.values and input_upload_path in flask.request.values:
 			filename = flask.request.values[input_upload_name]
 			try:
@@ -168,6 +168,17 @@ class Slic3rPlugin(octoprint.plugin.SlicerPlugin,
 		if not path:
 			path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "profiles", "default.profile.ini")
 		return self.get_slicer_profile(path)
+
+	def get_slicer_default_profiles(self):
+		profiles = []
+		for n in ["average", "manual", "precise"]:
+			p = os.path.join(os.path.dirname(os.path.realpath(__file__)), "profiles", n+".default.ini")
+			pf = self.get_slicer_profile(p)
+			pf.name = n
+			pf.display_name = n
+			pf.description = "automatically imported profile"
+			profiles.append(pf)
+		return profiles
 
 	def get_slicer_profile(self, path):
 		profile_dict, display_name, description = self._load_profile(path)
