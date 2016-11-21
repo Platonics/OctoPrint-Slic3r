@@ -117,27 +117,26 @@
         <div class="modal-body">
             <form class="form-horizontal">
                 <div class="control-group">
-                    <label class="control-label">{{ _('Density') }}</label>
                     <div class="controls">
                         <div class="input-append">
-                            <input type="number" step="any" min="1" max="100" class="input-mini text-right" data-bind="value: fillDensity">
-                            <span class="add-on">%</span>
+                            <input type="number" style="width: 153px" data-bind="slider: {min: 1, max: 100, step: 1, value: fillDensity, tooltip: 'hide'}">
+                            <button class="btn btn-block" style="width: 169px" data-bind="enable: false, click: function() { $root.setFillDensityCommand() }">{{ _('Fill Density:') }}<span data-bind="text: fillDensity() + '%'"></span></button>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">{{ _('Min Speed') }}</label>
                     <div class="controls">
                         <div class="input-append">
-                            <input type="number" min="1" max="100" class="input-mini" data-bind="value: minPrintSpeed">
+                            <input type="number" style="width: 153px" data-bind="slider: {min: 1, max: 100, step: 1, value: minPrintSpeed, tooltip: 'hide'}">
+                            <button class="btn btn-block" style="width: 169px" data-bind="enable: false, click: function() { $root.setMinPrintSpeedCommand() }">{{ _('Min Speed:') }}<span data-bind="text: minPrintSpeed()"></span></button>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">{{ _('Max Speed') }}</label>
                     <div class="controls">
                         <div class="input-append">
-                            <input type="number" min="1" max="100" class="input-mini" data-bind="value: maxPrintSpeed">
+                            <input type="number" style="width: 153px" data-bind="slider: {min: 1, max: 100, step: 1, value: maxPrintSpeed, tooltip: 'hide'}">
+                            <button class="btn btn-block" style="width: 169px" data-bind="enable: false, click: function() { $root.setMaxPrintSpeedCommand() }">{{ _('Max Speed:') }}<span data-bind="text: maxPrintSpeed()"></span></button>
                         </div>
                     </div>
                 </div>

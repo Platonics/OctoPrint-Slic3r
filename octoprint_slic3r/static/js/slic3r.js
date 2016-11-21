@@ -24,6 +24,25 @@ $(function() {
         self.minPrintSpeed = ko.observable()
         self.maxPrintSpeed = ko.observable()
 
+        self.setFillDensityCommand = function () {
+            self.sendPrintHeadCommand({
+                "command": "fillDensity",
+                "factor": self.fillDensity()
+            });
+        };
+         self.setMinPrintSpeedCommand = function () {
+            self.sendPrintHeadCommand({
+                "command": "minPrintSpeed",
+                "factor": self.minPrintSpeed()
+            });
+        };
+         self.setMaxPrintSpeedCommand = function () {
+            self.sendPrintHeadCommand({
+                "command": "maxPrintSpeed",
+                "factor": self.maxPrintSpeed()
+            });
+        };
+
         self.profiles = new ItemListHelper(
             "plugin_slic3r_profiles",
             {
@@ -189,7 +208,21 @@ $(function() {
         };
 
         self.showEditManualProfileDialog = function() {
+            // load the profile
+            self.loadManulProfile();
             $("#settings_plugin_slic3r_manual").modal("show");
+        };
+
+        self.loadManulProfile = function() {
+            $.ajax({
+                url: API_BASEURL + "slicing/slic3r/profiles/manual",
+                type: "GET",
+                success : function(response, textStatus, jqXhr) {
+                    self.fillDensity(response.data["fill_density"].slice(0, response.data["fill_density"].length-1));
+                    self.minPrintSpeed(response.data["min_print_speed"]);
+                    self.maxPrintSpeed(response.data["max_print_speed"]);
+                }
+            });
         };
 
         self.updateManualProfile = function() {
@@ -199,8 +232,6 @@ $(function() {
                 "min_print_speed": self.minPrintSpeed(),
                 "max_print_speed": self.maxPrintSpeed(),
             };
-            console.log("data");
-            console.log(data);
             $.ajax({
                 url: API_BASEURL + "slicing/slic3r/profiles/manual",
                 type: "PATCH",
