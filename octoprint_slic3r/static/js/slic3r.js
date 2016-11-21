@@ -20,6 +20,10 @@ $(function() {
         self.uploadElement = $("#settings-slic3r-import");
         self.uploadButton = $("#settings-slic3r-import-start");
 
+        self.fillDensity = ko.observable()
+        self.minPrintSpeed = ko.observable()
+        self.maxPrintSpeed = ko.observable()
+
         self.profiles = new ItemListHelper(
             "plugin_slic3r_profiles",
             {
@@ -50,7 +54,7 @@ $(function() {
             [],
             5
         );
-
+        
         self._sanitize = function(name) {
             return name.replace(/[^a-zA-Z0-9\-_\.\(\) ]/g, "").replace(/ /g, "_");
         };
@@ -184,6 +188,34 @@ $(function() {
             self.requestData();
         };
 
+        self.showEditManualProfileDialog = function() {
+            $("#settings_plugin_slic3r_manual").modal("show");
+        };
+
+        self.updateManualProfile = function() {
+            // overrides the manual profile
+            var data = {
+                "fill_density": self.fillDensity()+"%",
+                "min_print_speed": self.minPrintSpeed(),
+                "max_print_speed": self.maxPrintSpeed(),
+            };
+            console.log("data");
+            console.log(data);
+            $.ajax({
+                url: API_BASEURL + "slicing/slic3r/profiles/manual",
+                type: "PATCH",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data : JSON.stringify({
+                    "displayName": "manual",
+                    "description": "loaded from manual.default.ini",
+                    "data": data,
+                    }),
+                success : function(response, textStatus, jqXhr) {
+                    $("#settings_plugin_slic3r_manual").modal("hide");
+                }
+            });
+        };
     }
 
     // view model class, parameters for constructor, container to bind to
