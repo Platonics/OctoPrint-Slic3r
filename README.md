@@ -1,3 +1,17 @@
+# Notes from Zhiqi for Raspbian Jessie:
+follow https://github.com/alexrj/Slic3r/wiki/Running-Slic3r-from-git-on-GNU-Linux
+to compile slic3r 1.2.9
+
+before run `perl Build.PL`, run this `cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)`
+
+
+
+
+
+
+
+
+
 # Slic3r plugin for OctoPrint
 
 **WARNING**
@@ -5,6 +19,12 @@
 This plugin has been successfully tested for the following cases:</br>
 1. Linux: Slic3r's stable versions 1.1.7 and 1.2.9 (tests done under a Raspberry Pi 2, but it should work for other Linux distributions).</br>
 2. Windows: Slic3r works for version 1.2.9, not doing it for version 1.1.7.
+
+
+
+
+
+
 
 ## Setup
 
