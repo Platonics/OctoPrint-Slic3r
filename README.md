@@ -1,8 +1,16 @@
 # Notes from Zhiqi for Raspbian Jessie:
-follow https://github.com/alexrj/Slic3r/wiki/Running-Slic3r-from-git-on-GNU-Linux
+Follow https://github.com/alexrj/Slic3r/wiki/Running-Slic3r-from-git-on-GNU-Linux
 to compile slic3r 1.2.9
 
-before run `perl Build.PL`, run this `cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)`
+Before run `perl Build.PL`, run this `cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)`
+
+When creating the slic3r script, the content should be:
+```bash
+#!/bin/sh
+export LDLOADLIBS=-lstdc++
+eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+perl ./slic3r.pl $*
+```
 
 
 
